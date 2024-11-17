@@ -1,3 +1,5 @@
+#define SRT 16000                // количество импульсов СРТ
+#define DS  6000                 // количество импульсов ДС
 volatile float counter_oil = 0;  // переменная-счётчик
 volatile float counter_way = 0;  // переменная-счётчик
 float Speed = 0;                 // скорость ам
@@ -28,19 +30,19 @@ void btnIsr1() {
 
 
 void loop() {
-  if (counter_oil >= 16000) {
+  if (counter_oil >= SRT) {
     liter++;
     counter_oil = 0;
   }
 
-  if (counter_way >= 6000) {
+  if (counter_way >= SRT) {
     way++;
     counter_way = 0;
   }
 
-  liter_low = counter_oil / 16000;
+  liter_low = counter_oil / SRT;
 
-  way_low = counter_way / 6000;
+  way_low = counter_way / DS;
 
 
   litre_way = (liter + liter_low) / (way + way_low) * 100; // считаем литры на 100км
